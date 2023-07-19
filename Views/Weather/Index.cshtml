@@ -1,0 +1,44 @@
+@model PrevisaoTempoApp.Services.WeatherData
+
+<div class="d-flex justify-content-center">
+    @using (Html.BeginForm("Index", "Weather", FormMethod.Post, new { @class = "form-group" }))
+    {
+      <div class="input-group mb-3">
+            @Html.TextBox("city", null, new { @class = "form-control input-city", placeholder = "Digite o nome da cidade" })
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">
+                    <img src="~/search.svg" style="width: 20px; height: 20px;" /> 
+                </button>
+            </div>
+        </div>
+      
+    }
+</div>
+
+@if (Model != null)
+{
+<div class="card temp-city" style="display: flex; align-items: center;">
+   <div class="card-title" style="display: flex; align-items: center; margin-right: 10px;">
+        <img src="~/location.svg" style="width: 30px; height: 30px; margin-right: 10px;" alt="Localização" />
+        <h2 style="color: #fff;">@Model.Name</h2>
+    </div>
+
+    <div class="card-body" style="display: flex; align-items: center; text-align: center;">
+        <img src="~/temperature.svg" style="width: 30px; height: 30px; margin-right: 10px;" alt="Termômetro" />
+        <h2>@Model.Main.Temp °C</h2>
+        @if (Model.Main.Temp > 30)
+        {
+            <img src="~/logo.svg" style="width: 50px; height: 50px; margin-left:  10px;" alt="Sol" />
+        }
+        else if (Model.Main.Temp < 15)
+        {
+            <img src="~/cold.svg" style="width: 50px; height: 50px; margin-left:  10px;" alt="Frio" />
+        }
+        else
+        {
+            <img src="~/cloudday.svg" style="width: 50px; height: 50px; margin-left:  10px;" alt="Nuvem" />
+        }
+    </div>
+    <p style="margin-left: 10px; color: #fff ">Umidade: @Model.Main.Humidity %</p>
+</div>
+}
